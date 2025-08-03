@@ -1,0 +1,16 @@
+name: cloud
+channels:
+  - pytorch
+  - defaults
+dependencies:
+  - python=3.10
+  - cudatoolkit=11.8
+  - pytorch
+  - torchvision
+  - torchaudio
+  - numpy
+  - matplotlib
+  - pytest
+  - pip
+  - pip:
+      - wandb         # optional: for experiment logging
