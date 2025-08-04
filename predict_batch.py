@@ -36,9 +36,16 @@ with torch.no_grad():
 
             input_tensor = transform(img).unsqueeze(0)
             output = model(input_tensor)
-            predicted_mask = torch.sigmoid(output).squeeze().numpy()
+            
+            sigmoid_output = torch.sigmoid(output)
+            mean_sigmoid = sigmoid_output.mean().item()
+            print(f"{filename} - Mean after sigmoid: {mean_sigmoid:.4f}")
+            # predicted_mask = torch.sigmoid(output).squeeze().numpy()
+            predicted_mask = (torch.sigmoid(output) > 0.98).squeeze().cpu().numpy().astype("uint8") * 255
+
 
             save_path = os.path.join(pred_dir, filename)
-            Image.fromarray((predicted_mask * 255).astype("uint8")).save(save_path)
+            # Image.fromarray((predicted_mask * 255).astype("uint8")).save(save_path)
+            Image.fromarray(predicted_mask).save(save_path)
 
 print("✅ All masks saved to pred_images/")
