@@ -41,7 +41,7 @@ with torch.no_grad():
             mean_sigmoid = sigmoid_output.mean().item()
             print(f"{filename} - Mean after sigmoid: {mean_sigmoid:.4f}")
             # predicted_mask = torch.sigmoid(output).squeeze().numpy()
-            predicted_mask = (torch.sigmoid(output) > 0.98).squeeze().cpu().numpy().astype("uint8") * 255
+            predicted_mask = (torch.sigmoid(output) > 0.9975).squeeze().cpu().numpy().astype("uint8") * 255
 
 
             save_path = os.path.join(pred_dir, filename)
